@@ -1,0 +1,39 @@
+function scr_player_camera(){
+	var playerx = obj_player.x;
+	var playery = obj_player.y;
+	
+	var mousex = device_mouse_x_to_gui(0);
+	var mousey = device_mouse_y_to_gui(0);
+	
+	var camera = view_camera[0];
+	var cam_x = camera_get_view_x(camera);
+	var cam_y = camera_get_view_y(camera);
+	var cam_w = camera_get_view_width(camera);
+	var cam_h = camera_get_view_height(camera);
+	
+	var cam_mouse_x = cam_x + mousex;
+	var cam_mouse_y = cam_y + mousey;
+	
+	var directionx = cam_mouse_x - playerx;
+	var directiony = cam_mouse_y - playery;
+	
+	var max_offset = 100;
+	var offset_distance = point_distance(0, 0, directionx, directiony);
+	
+	if (offset_distance > max_offset) {
+		var dir = point_direction(0, 0, directionx, directiony);
+		directionx = lengthdir_x(max_offset, dir);
+		directiony = lengthdir_y(max_offset, dir);
+	}
+	
+	var target_x = playerx + directionx - cam_w / 2;
+	var target_y = playery + directiony - cam_h / 2;
+	
+	var smooth = 0.1;
+	var newcampos_x = lerp(cam_x, target_x, smooth);
+	var newcampos_y = lerp(cam_y, target_y, smooth);
+
+	camera_set_view_pos(camera, newcampos_x, newcampos_y);
+
+//note: enable viewport
+	}

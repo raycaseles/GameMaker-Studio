@@ -1,0 +1,13 @@
+function scr_player_movement(up, down, left, right, mspeed) {
+	var movex, movey, accel, hsp, vsp;
+	movex = keyboard_check(right) - keyboard_check(left);
+	movey = keyboard_check(down) - keyboard_check(up);
+	
+	var length = point_distance(0, 0, movex, movey); 
+	if (length > 0) {movex /= length; movey /= length;} //prevents division by 0
+	
+	hsp = movex * mspeed;
+	vsp = movey * mspeed;
+	
+	scr_player_collision(mspeed, movex, movey, hsp, vsp);
+}

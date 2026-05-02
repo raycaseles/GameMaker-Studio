@@ -1,0 +1,7 @@
+function scr_bullet_physics(speed, lifetime){
+	x += lengthdir_x(speed, direction);
+	y += lengthdir_y(speed, direction);
+	
+	lifetime--;
+	if (lifetime <= 0){instance_destroy();}
+}

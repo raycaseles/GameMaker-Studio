@@ -1,0 +1,31 @@
+function scr_player_collision(mspeed, movex, movey, hsp, vsp){
+	var repel_direction = point_direction(obj_player.x, obj_player.y, 
+										  par_solid.x, par_solid.y)
+
+	repeat abs(hsp) {
+		if (!place_meeting(x + sign(hsp), y, par_solid)) {
+			x += sign(hsp);
+		} else {
+			break;
+		}
+	}
+
+	repeat abs(vsp) {
+		if (!place_meeting(x, y + sign(vsp), par_solid)) {
+			y += sign(vsp);
+		} else {
+			break;
+		}
+	}
+	
+	repeat (place_meeting(x + sign(hsp), y, par_solid)) {
+		if (hsp > 0){x -= 1;}
+		if (hsp < 0){x += 1;}
+	}
+	
+	repeat (place_meeting(x, y + sign(vsp), par_solid)) {
+		if (vsp > 0){y -= 1;}
+		if (vsp < 0){y += 1;}
+	}
+	
+}
